@@ -1,0 +1,11 @@
+.zombie {
+    height: 50vh;
+}
+
+.hide {
+    display: none;
+}
+
+.border-radius {
+    border-radius: .5rem;
+}
