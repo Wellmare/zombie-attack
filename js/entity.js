@@ -1,5 +1,5 @@
 class Entity {
-	isDead = false;
+	// isDead = false;
 
 	constructor(initialHealth, minAttack, maxAttack, sideName, nodes) {
 		const {
@@ -37,8 +37,9 @@ class Entity {
 	takeDamage = (damageSize) => {
 		this.currentHealth -= damageSize;
 		if (this.currentHealth <= 0) {
-			this.isDead = true;
+			// this.isDead = true;
 			// Game.stop()
+			this.renderEntity()
 			Game.win(this.enemy.sideName);
 		}
 		this.renderEntity();

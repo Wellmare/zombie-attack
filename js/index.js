@@ -39,3 +39,46 @@
 // });
 
 Game.start();
+
+// document.body.innerHTML = `
+//     <div class="modal fade" tabindex="-1" id="modal">
+//         <div class="modal-dialog">
+//             <div class="modal-content">
+//                 <div class="modal-header">
+//                     <h5 class="modal-title">Ты выйграл</h5>
+//                 </div>
+//                 <div class="modal-body">
+//                     <p>Начать заново?</p>
+//                 </div>
+//                 <div class="modal-footer">
+//                     <!-- <button
+//                             type="button"
+//                             class="btn btn-secondary"
+//                             data-bs-dismiss="modal"
+//                         >
+//                             Close
+//                         </button> -->
+//                     <button type="button" class="btn btn-primary">
+//                         Да
+//                     </button>
+//                 </div>
+//             </div>
+//         </div>
+//     </div>
+
+//     <button class="btn btn-primary px-5" id="attack-btn">
+// 					Attack
+// 				</button>
+// `
+
+// const btn = document.querySelector('#attack-btn');
+
+// const modal = new bootstrap.Modal(document.querySelector('#modal'), {
+//     keyboard: false,
+//     focus: true,
+//     backdrop: 'static'
+// });
+
+// btn.addEventListener('click', () => {
+//     modal.show()
+// })
