@@ -1,4 +1,4 @@
-.zombie {
+.entity {
     height: 50vh;
 }
 
@@ -19,4 +19,33 @@
     left: 0;
     bottom: 0;
     z-index: -1;
+}
+
+.damaged-left {
+    animation-name: damaged-left;
+    animation-duration: 1s;
+}
+
+.damaged-right {
+    animation-name: damaged-right;
+    animation-duration: 1s;
+}
+
+@keyframes damaged-left {
+    30% {
+        transform: rotate(-30deg);
+    }
+
+    100% {
+        transform: rotateX(0deg);
+    }
+}
+
+@keyframes damaged-right {
+    30% {
+        transform: rotate(30deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
 }

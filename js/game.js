@@ -6,19 +6,48 @@ class Game {
 	constructor() {}
 	static start = () => {
 		if (!this.isStopped) {
-			const zombie = new Entity(50, 20, 40, 'Zombie', {
-				healthNodeSelector: '#zombie-health',
-				attackWrapperNodeSelector: '#zombie-attack',
-				attackSizeNodeSelector: '#zombie-attack-count'
-			});
-			const human = new Entity(150, 10, 30, 'You', {
-				healthNodeSelector: '#your-health',
-				attackWrapperNodeSelector: '#your-attack',
-				attackSizeNodeSelector: '#your-attack-count'
+			// const zombie = new Entity({50, 20, 40, 'Zombie', {
+			// healthNodeSelector: '#zombie-health',
+			// attackWrapperNodeSelector: '#zombie-attack',
+			// attackSizeNodeSelector: '#zombie-attack-count'
+			// }});
+
+			const zombie = new Entity({
+				initialHealth: 50,
+				minAttack: 20,
+				maxAttack: 40,
+				sideName: 'Zombie',
+				nodes: {
+					healthNodeSelector: '#zombie-health',
+					attackWrapperNodeSelector: '#zombie-attack',
+					attackSizeNodeSelector: '#zombie-attack-count',
+					entityNodeSelector: '#zombie'
+				},
+				animationSide: animationSideEnum.left
 			});
 
-			console.log(zombie);
-			console.log(human);
+			// const human = new Entity(150, 10, 30, 'You', {
+			// 	healthNodeSelector: '#your-health',
+			// 	attackWrapperNodeSelector: '#your-attack',
+			// 	attackSizeNodeSelector: '#your-attack-count'
+			// });
+
+			const human = new Entity({
+				initialHealth: 100,
+				minAttack: 10,
+				maxAttack: 30,
+				sideName: 'Human',
+				nodes: {
+					healthNodeSelector: '#your-health',
+					attackWrapperNodeSelector: '#your-attack',
+					attackSizeNodeSelector: '#your-attack-count',
+					entityNodeSelector: '#human'
+				},
+				animationSide: animationSideEnum.right
+			});
+
+			// console.log(zombie);
+			// console.log(human);
 
 			zombie.enemy = human;
 			human.enemy = zombie;
@@ -26,12 +55,10 @@ class Game {
 			zombie.renderEntity();
 			human.renderEntity();
 
-			attackBtnNode.classList.remove('disabled');
-			console.log('remove disabled');
-
 			this.attackBtnHandler = () => {
 				if (!this.isStopped) {
 					attackBtnNode.classList.add('disabled');
+					console.log('class disabled added in attack handler');
 					human.attack();
 					setTimeout(() => {
 						if (!this.isStopped) {
@@ -41,6 +68,9 @@ class Game {
 					}, 2000);
 				}
 			};
+
+			attackBtnNode.classList.remove('disabled');
+			console.log('remove disabled');
 
 			attackBtnNode.addEventListener('click', this.attackBtnHandler);
 		}
@@ -54,6 +84,7 @@ class Game {
 		this.isStopped = true;
 		removeEventListener('click', this.attackBtnHandler);
 		attackBtnNode.classList.add('disabled');
+		console.log('stopped');
 	};
 
 	static win = (sideWin) => {
@@ -63,29 +94,32 @@ class Game {
 
 		const submitHandler = (e) => {
 			disposeModal();
-			this.isStopped = false
+			this.isStopped = false;
 			Game.start();
+			attackBtnNode.classList.remove('disabled');
 		};
 
 		const { closeModal, openModal, disposeModal, modal } = Game.createModal(
-			// 'body',
-			submitHandler,
-			'win',
-			`${sideWin} победил!`,
-			'Начать заново?',
-			'Да'
+			{
+				// 'body',
+				submitHandler,
+				modalId: 'win',
+				modalTitle: `${sideWin} won!`,
+				modalBody: 'Start again?',
+				buttonSubmitText: 'Yes'
+			}
 		);
 		openModal();
 	};
 
-	static createModal = (
+	static createModal = ({
 		// containerSelector,
 		submitHandler,
 		modalId,
 		modalTitle,
 		modalBody,
 		buttonSubmitText
-	) => {
+	}) => {
 		// const containerNode = document.querySelector(containerSelector);
 
 		// const modalNode = document.createElement('div');
